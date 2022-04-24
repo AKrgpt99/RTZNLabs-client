@@ -1,0 +1,24 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "An NFT management dashboard and launchpad",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AKrgpt99/RTZNLabs-client.git"
+  },
+  "keywords": [
+    "RTZN",
+    "Artisan",
+    "Client"
+  ],
+  "author": "Abhinav Kargupta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AKrgpt99/RTZNLabs-client/issues"
+  },
+  "homepage": "https://github.com/AKrgpt99/RTZNLabs-client#readme"
+}
