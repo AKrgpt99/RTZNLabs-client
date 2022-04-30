@@ -1,0 +1,36 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+a,
+button {
+  text-decoration: none;
+  font-weight: 600;
+  color: #404040;
+  border: none;
+  font-size: 16px;
+}
+
+.transition {
+  transition: all 0.2s ease-in-out;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #808080cc;
+  border-radius: 2px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #808080;
+}
