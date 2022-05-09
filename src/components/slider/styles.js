@@ -3,16 +3,17 @@ import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles({
   sliderContainer: {
     width: "100% !important",
-    height: "100%",
+    height: "625px",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "end",
     alignItems: "center",
+    position: "relative",
   },
 
   slider: {
     width: "100%",
-    height: "100%",
+    height: "600px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -21,6 +22,10 @@ const useStyles = createUseStyles({
       height: "500px",
       objectFit: "contain",
     },
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 1,
   },
 
   sliderTitle: {
@@ -50,8 +55,12 @@ const useStyles = createUseStyles({
   sliderIndicators: {
     display: "flex",
     gap: "5px",
+    width: "100%",
     height: "5px",
     marginTop: "50px",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 0,
   },
 
   sliderIndicator: {

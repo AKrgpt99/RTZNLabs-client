@@ -50,16 +50,36 @@ const useStyles = createUseStyles({
   },
 
   profileButton: {
-    width: "150px",
+    width: "fit-content",
     height: "30px",
     display: "flex",
+    padding: {
+      left: "3px",
+      right: "10px",
+    },
     justifyContent: "center",
     alignItems: "center",
-    color: "white",
     borderRadius: "30px",
-    backgroundColor: "#808080CC",
+    gap: "10px",
+    color: "#808080",
+    backgroundColor: "#80808040",
     "&:hover": {
+      color: "white",
       backgroundColor: "#808080",
+      "& #header": {
+        border: "2px solid white",
+      },
+    },
+    "& #header": {
+      border: "2px solid #9B41B2",
+    },
+  },
+
+  profileButtonSelected: {
+    color: "white",
+    backgroundColor: "#9B41B2",
+    "& #header": {
+      border: "2px solid white !important",
     },
   },
 
@@ -74,7 +94,7 @@ const useStyles = createUseStyles({
 
   navButton: {
     width: "75px",
-    height: "35%",
+    height: "75px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -84,6 +104,8 @@ const useStyles = createUseStyles({
       opacity: 1,
     },
     "& img": {
+      width: "25px",
+      height: "25px",
       filter:
         "invert(52%) sepia(0%) saturate(0%) hue-rotate(104deg) brightness(97%) contrast(85%)",
     },
@@ -100,8 +122,21 @@ const useStyles = createUseStyles({
     },
   },
 
-  navButtonText: {
-    // fontSize: "12px",
+  jazziconContainer: {
+    width: "20px",
+    height: "20px",
+    borderRadius: "22px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    border: "2px solid #9B41B2",
+  },
+
+  navIconContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

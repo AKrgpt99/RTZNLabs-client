@@ -1,53 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ethers } from "ethers";
-import { sequence } from "0xsequence";
-import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
-import Web3Modal from "web3modal";
 
-import { getUser } from "./authApi";
+import { auth } from "./authApi";
+import { useWeb3 } from "../../web3";
 
 const initialState = {
   currentUser: null,
+  error: null,
+  loading: false,
 };
 
-const providerOptions = {
-  sequence: {
-    package: sequence,
-    options: {
-      appName: "RTZN Labs",
-      defaultNetwork: "mainnet",
-    },
-  },
-  binancechainwallet: {
-    package: true,
-  },
-  coinbasewallet: {
-    package: CoinbaseWalletSDK,
-    options: {
-      appName: "RTZN Labs",
-      infuraId: "8c415f1bb9e8442e8e69ead8621dfed8",
-    },
-  },
-};
-
-const web3Modal = new Web3Modal({
-  network: "mainnet",
-  cacheProvider: false,
-  providerOptions,
-});
-
-export const fetchUser = createAsyncThunk(
-  "auth/fetchUser",
-  async (_, { fulfillWithValue, rejectWithValue }) => {
+export const authenticate = createAsyncThunk(
+  "user/authenticate",
+  async (_, { rejectWithValue }) => {
     try {
-      const instance = await web3Modal.connect();
+      const web3 = useWeb3();
 
-      const provider = new ethers.providers.Web3Provider(instance);
-      const signer = provider.getSigner();
+      if (!web3.getProvider()) {
+        await web3.setProvider();
+      }
 
-      const user = getUser(signer);
+      if (!web3.getToken()) {
+        await web3.setToken();
+      }
 
-      return fulfillWithValue(user);
+      const { user, error } = await auth({ token: web3.getToken() });
+      if (error) {
+        web3.reset();
+        throw error;
+      }
+
+      return user.data;
     } catch (err) {
       console.log(err);
       return rejectWithValue(err);
@@ -59,6 +41,19 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(authenticate.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(authenticate.fulfilled, (state, action) => {
+      state.loading = false;
+      state.currentUser = action.payload;
+    });
+    builder.addCase(authenticate.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+  },
 });
 
 export const {} = authSlice.actions;

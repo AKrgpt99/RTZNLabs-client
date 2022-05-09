@@ -2,7 +2,6 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 
 import Header from "../header";
-import Footer from "../footer";
 
 const layoutStyle = {
   width: "100%",
@@ -16,7 +15,6 @@ function Layout() {
     <div style={layoutStyle}>
       <Header />
       <Outlet />
-      <Footer />
     </div>
   );
 }

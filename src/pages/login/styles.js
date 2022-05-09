@@ -84,6 +84,28 @@ const useStyles = createUseStyles({
     marginTop: "10px",
     marginBottom: "50px",
   },
+
+  loadingContainer: {
+    backgroundColor: "#80808080",
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    top: 0,
+    left: 0,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 2,
+  },
+
+  loadingSpinner: {
+    border: "16px solid #F3F3F3",
+    borderTop: "16px solid #9B41B2",
+    borderRadius: "120px",
+    width: "120px",
+    height: "120px",
+    animation: "spin 1s linear infinite",
+  },
 });
 
 export default useStyles;

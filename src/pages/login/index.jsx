@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
+import { useDispatch, useSelector } from "react-redux";
 
 import useStyles from "./styles";
 import Page from "../../components/page";
 import MetaMaskLogo from "../../assets/images/svg/metamask.svg";
 import CoinbaseLogo from "../../assets/images/svg/coinbase.svg";
 import BinanceLogo from "../../assets/images/svg/binance.svg";
-import SequenceLogo from "../../assets/images/svg/0xsequence.svg";
+import WalletConnectLogo from "../../assets/images/svg/walletconnect.svg";
 import Illustration3 from "../../assets/images/png/illustration3.png";
 import Illustration5 from "../../assets/images/png/illustration5.png";
 import Illustration6 from "../../assets/images/png/illustration6.png";
 import Slider from "../../components/slider";
+import { authenticate } from "../../features/auth/authSlice";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const slides = [
   {
@@ -33,16 +36,39 @@ const slides = [
 function Login() {
   const classes = useStyles();
   const [slideIndex, setSlideIndex] = useState(0);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.currentUser);
+  const loading = useSelector((state) => state.auth.loading);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleLogin = () => {};
+  useEffect(() => {
+    if (user) {
+      let next = "/";
+
+      if (location.search !== "") {
+        next = location.search.split("next=")[1];
+      }
+
+      navigate(next);
+    }
+  }, [user]);
+
+  const handleLogin = () => {
+    dispatch(authenticate());
+  };
 
   const handleSlider = (index) => {
     setSlideIndex(index);
-    console.log(slideIndex);
   };
 
   return (
     <Page>
+      {loading && (
+        <div className={classes.loadingContainer}>
+          <div className={classes.loadingSpinner}></div>
+        </div>
+      )}
       <div className={classes.loginWrapper}>
         <div className={classes.loginWrapperContainer}>
           <Slider
@@ -62,9 +88,9 @@ function Login() {
             <hr className={classes.hr} />
             <div className={classes.walletLogos}>
               <img src={MetaMaskLogo} alt="MetaMask supported" />
-              <img src={CoinbaseLogo} alt="Coinbase supported" />
+              <img src={WalletConnectLogo} alt="WalletConnect supported" />
               <img src={BinanceLogo} alt="Binance supported" />
-              <img src={SequenceLogo} alt="Sequence supported" />
+              <img src={CoinbaseLogo} alt="Coinbase supported" />
             </div>
             <button
               onClick={handleLogin}

@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: "./src/index.jsx",
@@ -33,8 +34,15 @@ module.exports = {
   resolve: {
     extensions: ["*", ".js", ".jsx"],
     fallback: {
+      fs: false,
+      stream: require.resolve("stream-browserify"),
       buffer: require.resolve("buffer/"),
       util: require.resolve("util/"),
+      assert: require.resolve("assert/"),
+      http: require.resolve("stream-http/"),
+      url: require.resolve("url/"),
+      https: require.resolve("https-browserify/"),
+      os: require.resolve("os-browserify/"),
     },
   },
   output: {
@@ -52,8 +60,6 @@ module.exports = {
   },
   plugins: [
     new webpack.ProvidePlugin({ Buffer: ["buffer", "Buffer"] }),
-    new webpack.DefinePlugin({
-      process: { env: {} },
-    }),
+    new Dotenv(),
   ],
 };

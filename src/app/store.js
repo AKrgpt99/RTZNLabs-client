@@ -1,11 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import authReducer from "../features/auth/authSlice";
-import projectsReducer from "../features/projects/projectsSlice";
+import projectReducer from "../features/projects/projectSlice";
+import userReducer from "../features/users/userSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    projects: projectsReducer,
+    projects: projectReducer,
+    users: userReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });

@@ -1,14 +1,20 @@
-import Web3Token from "web3-token";
-
 import axiosClient from "../../api";
 
-export async function getUser(signer) {
-  const token = await Web3Token.sign(
-    async (msg) => await signer.signMessage(msg),
-    "1m"
-  );
+export async function auth({ token }) {
+  let user, error;
 
-  return await axiosClient.get(`/auth/user`, {
-    headers: { Authorization: token },
-  });
+  try {
+    if (!token) {
+      throw "Invalid token.";
+    }
+
+    user = await axiosClient.get(`/auth`, {
+      headers: { Authorization: token },
+    });
+  } catch (err) {
+    console.log(err);
+    error = err;
+  }
+
+  return { user, error };
 }
